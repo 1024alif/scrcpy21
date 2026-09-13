@@ -179,6 +179,16 @@ keyboard][hid].
 [hid]: doc/keyboard.md#physical-keyboard-simulation
 
 
+### Python or automated synthetic inputs do not work
+
+If you are using Python scripts or automation tools (such as PyAutoGUI, `pynput`, or Windows `SendInput`) to simulate keyboard presses, mouse clicks, or swipes, ensure the following:
+
+1. **Privilege matching (Windows UIPI):** On Windows, User Interface Privilege Isolation (UIPI) blocks non-elevated applications from sending synthetic input events to elevated processes. If _scrcpy_ is running as Administrator (or launched from an elevated terminal), your Python script must also be run as Administrator.
+2. **Android security settings:** On some Android ROMs (such as MIUI/Xiaomi), input simulation must be explicitly allowed. In developer options, enable **USB debugging (Security settings)** and reboot the device.
+3. **Window focus and coordinates:** Synthetic window events require the _scrcpy_ window to be focused, and mouse click/drag coordinates must fall within the client area of the window.
+4. **Mouse/Keyboard mode:** Standard automation tools send window events handled in default mode (`--mouse=sdk` and `--keyboard=sdk`).
+
+
 ## Client issues
 
 ### Issue with Wayland

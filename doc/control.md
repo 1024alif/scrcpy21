@@ -146,3 +146,14 @@ Note that some gallery apps only show files from a fixed list of folders
 (typically `DCIM/Camera`) in their main view; the file is then still reachable
 through the system Photo Picker and the folder view, but may not appear on the
 gallery home screen.
+
+
+## Automation and synthetic input
+
+Automation tools or scripts (e.g. Python libraries like `PyAutoGUI`, `pynput`, or Win32 `SendInput`) can send synthetic mouse clicks, key presses, or drag gestures to the _scrcpy_ window.
+
+For synthetic events to be processed properly:
+ - **Default input modes:** Ensure default SDK modes (`--mouse=sdk` and `--keyboard=sdk`) are active, as synthetic window messages target standard OS window events.
+ - **Window focus:** The _scrcpy_ window must be in the foreground and focused when synthetic events are posted.
+ - **Privilege level (Windows UIPI):** On Windows 10/11, Windows User Interface Privilege Isolation (UIPI) blocks synthetic input sent from a non-administrator script to an elevated application. Make sure the Python process and _scrcpy_ run at the same elevation level (e.g., both as standard user or both as Administrator).
+ - **Android Developer Options:** Ensure **USB debugging (Security settings)** is enabled on devices/ROMs that restrict input injection (such as MIUI/Xiaomi).
